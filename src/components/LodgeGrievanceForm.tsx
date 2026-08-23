@@ -641,7 +641,7 @@ export const LodgeGrievanceForm: React.FC<LodgeGrievanceFormProps> = ({
               <div className="mt-3 pt-3 border-t border-white/10">
                 <span className="text-xs font-semibold text-slate-400 block mb-1.5">Departmental Next Steps:</span>
                 <div className="flex flex-wrap gap-2">
-                  {aiAnalysis.suggestedImmediateSteps.map((step, sidx) => (
+                  {(aiAnalysis.suggestedImmediateSteps || []).map((step, sidx) => (
                     <span key={sidx} className="text-xs bg-white/5 text-slate-300 px-2.5 py-1 rounded-xl border border-white/10 backdrop-blur-md">
                       • {step}
                     </span>

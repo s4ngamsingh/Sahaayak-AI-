@@ -229,12 +229,12 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ onSelectGrie
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Grievance Queue List */}
         <div className="lg:col-span-5 space-y-3 max-h-[750px] overflow-y-auto pr-1">
-          {grievances.length === 0 ? (
+          {(!grievances || grievances.length === 0) ? (
             <div className="bg-white/[0.04] border border-white/10 backdrop-blur-xl rounded-2xl p-8 text-center text-slate-400 text-sm">
               No grievances found matching the current filters.
             </div>
           ) : (
-            grievances.map((g) => {
+            (grievances || []).map((g) => {
               const isSelected = activeGrievance?.id === g.id;
               return (
                 <div
@@ -329,7 +329,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ onSelectGrie
                     AI Action Recommendations for Officer:
                   </span>
                   <ul className="space-y-1 text-slate-300 list-disc list-inside">
-                    {activeGrievance.aiSuggestedActions.map((act, aidx) => (
+                     {(activeGrievance.aiSuggestedActions || []).map((act, aidx) => (
                       <li key={aidx}>{act}</li>
                     ))}
                   </ul>

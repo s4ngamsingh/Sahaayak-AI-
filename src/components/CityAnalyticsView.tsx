@@ -120,7 +120,7 @@ export const CityAnalyticsView: React.FC = () => {
           </div>
 
           <div className="space-y-4">
-            {byDepartment.map((dept: any) => (
+            {(byDepartment || []).map((dept: any) => (
               <div key={dept.id} className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-semibold text-slate-200">{dept.name}</span>
@@ -181,7 +181,7 @@ export const CityAnalyticsView: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {wardHotspots.map((wh: any, widx: number) => (
+          {(wardHotspots || []).map((wh: any, widx: number) => (
             <div key={widx} className="p-4 bg-white/[0.02] rounded-xl border border-white/10 text-xs flex flex-col justify-between backdrop-blur-md">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">

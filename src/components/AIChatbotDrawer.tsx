@@ -195,7 +195,7 @@ export const AIChatbotDrawer: React.FC<AIChatbotDrawerProps> = ({
               {/* Quick Reply Pills */}
               {!isUser && msg.suggestedQuickReplies && (
                 <div className="flex flex-wrap gap-1.5 mt-2">
-                  {msg.suggestedQuickReplies.map((pill, pidx) => (
+                  {(msg.suggestedQuickReplies || []).map((pill, pidx) => (
                     <button
                       key={pidx}
                       onClick={() => {

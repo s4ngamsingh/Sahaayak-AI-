@@ -137,7 +137,11 @@ export const GrievanceTracker: React.FC<GrievanceTrackerProps> = ({ initialTrack
       const updatedData = await res.json();
       
       // Update local grievance
-      setGrievance((prev) => (prev ? { ...prev, messages: updatedData.allMessages } : null));
+       if (updatedData.message) {
+        setGrievance((prev) => (prev ? { ...prev, messages: [...(prev.messages || []), updatedData.message] } : null));
+      } else if (updatedData.allMessages) {
+        setGrievance((prev) => (prev ? { ...prev, messages: updatedData.allMessages } : null));
+      }
       setCitizenMsg('');
     } catch (err) {
       console.error('Error sending message:', err);
@@ -384,7 +388,7 @@ export const GrievanceTracker: React.FC<GrievanceTrackerProps> = ({ initialTrack
 
               {/* Detailed Event Log */}
               <div className="space-y-4 relative before:absolute before:inset-0 before:left-3 before:w-0.5 before:bg-white/10">
-                {grievance.timeline.map((event, eidx) => (
+                {(grievance.timeline || []).map((event, eidx) => (
                   <div key={event.id || eidx} className="relative flex items-start gap-3 pl-1">
                     <div className="w-6 h-6 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-indigo-400 z-10 flex-shrink-0 mt-0.5 backdrop-blur-md">
                       <div className="w-2 h-2 rounded-full bg-indigo-400" />
@@ -515,7 +519,7 @@ export const GrievanceTracker: React.FC<GrievanceTrackerProps> = ({ initialTrack
 
               {/* Message List */}
               <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white/[0.01]">
-                {grievance.messages.map((msg) => {
+                {(grievance.messages || []).map((msg) => {
                   const isCitizen = msg.sender === 'CITIZEN';
                   const isAI = msg.sender === 'AI_SYSTEM';
 
