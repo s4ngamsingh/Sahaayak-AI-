@@ -1,6 +1,6 @@
 {
   "name": "Samadhan AI - Citizen Grievance Portal",
   "description": "Multilingual AI-powered citizen grievance redressal system with voice dictation, smart department routing, unique tracking, real-time lifecycle updates, and cross-department administration.",
-  "requestFramePermissions": ["microphone"],
+  "requestFramePermissions": ["microphone", "geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -9,12 +9,17 @@ export function isSpeechRecognitionSupported(): boolean {
   return typeof window !== 'undefined' && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window);
 }
 
+export interface SpeechRecognitionSession {
+  stop: () => void;
+  abort: () => void;
+}
+
 export function startSpeechRecognition(
   langCode: string,
-  onResult: (transcript: string) => void,
+  onResult: (result: { finalTranscript: string; interimTranscript: string; fullTranscript: string }) => void,
   onError: (err: any) => void,
   onEnd: () => void
-): { stop: () => void } | null {
+): SpeechRecognitionSession | null {
   if (!isSpeechRecognitionSupported()) {
     onError(new Error('Speech recognition not supported in this browser.'));
     return null;
@@ -23,26 +28,44 @@ export function startSpeechRecognition(
   const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
   const recognition = new SpeechRecognitionClass();
 
-  recognition.continuous = false;
+  recognition.continuous = true;
   recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
   recognition.lang = langCode || 'hi-IN';
 
+  let accumulatedFinal = '';
+
   recognition.onresult = (event: any) => {
-    let finalTranscript = '';
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      if (event.results[i].isFinal) {
-        finalTranscript += event.results[i][0].transcript;
+    let currentInterim = '';
+    let currentFinal = '';
+
+    for (let i = 0; i < event.results.length; ++i) {
+      const item = event.results[i];
+      if (item.isFinal) {
+        currentFinal += item[0].transcript;
       } else {
-        finalTranscript += event.results[i][0].transcript;
+        currentInterim += item[0].transcript;
       }
     }
-    if (finalTranscript) {
-      onResult(finalTranscript);
+
+    accumulatedFinal = currentFinal;
+
+    const fullTranscript = (accumulatedFinal + ' ' + currentInterim).trim();
+    if (fullTranscript) {
+      onResult({
+        finalTranscript: accumulatedFinal.trim(),
+        interimTranscript: currentInterim.trim(),
+        fullTranscript,
+      });
     }
   };
 
   recognition.onerror = (event: any) => {
-    console.warn('Speech recognition error:', event.error);
+    // 'no-speech' is a common benign event when citizen is pausing
+    if (event.error === 'no-speech') {
+      return;
+    }
+    console.warn('Speech recognition event warning:', event.error);
     onError(event);
   };
 
@@ -60,7 +83,14 @@ export function startSpeechRecognition(
     stop: () => {
       try {
         recognition.stop();
-      } catch (e) {
+      } catch {
+        // ignore
+      }
+    },
+    abort: () => {
+      try {
+        recognition.abort();
+      } catch {
         // ignore
       }
     },

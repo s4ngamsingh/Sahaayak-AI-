@@ -161,3 +161,84 @@ export interface SupportedLanguage {
   speechCode: string;
   voicePrompt: string;
 }
+
+export interface AIInsightsData {
+  summary: {
+    total: number;
+    resolved: number;
+    inProgress: number;
+    pendingTriage: number;
+    criticalCount: number;
+    overallResolutionRate: number;
+    avgRedressalTimeHours: number;
+    languagesSupported: number;
+  };
+  executiveSummary: {
+    civicHealthScore: number; // 0 to 100
+    statusRating: string; // e.g. "OPTIMAL_FLOW", "HIGH_VULNERABILITY", "MODERATE_LOAD"
+    keyDiagnosis: string;
+    executiveCommentary: string;
+  };
+  systemicAnomalies: Array<{
+    id: string;
+    title: string;
+    departmentId: string;
+    departmentName: string;
+    impactedWards: string[];
+    severity: 'CRITICAL' | 'HIGH' | 'MEDIUM';
+    rootCauseAnalysis: string;
+    permanentFixRecommendation: string;
+    estimatedTurnaround: string;
+  }>;
+  predictiveSlaRisks: Array<{
+    category: string;
+    departmentName: string;
+    breachRiskPercent: number;
+    riskLevel: 'HIGH' | 'MODERATE' | 'LOW';
+    projectedBottleneck: string;
+    preventiveMitigation: string;
+  }>;
+  preventiveRecommendations: Array<{
+    priority: number;
+    actionTitle: string;
+    targetDepartment: string;
+    targetWard: string;
+    rationale: string;
+    anticipatedImpact: string;
+  }>;
+  wardHotspots: Array<{
+    ward: string;
+    total: number;
+    critical: number;
+    topIssue: string;
+    aiRiskScore: number; // 0 to 100
+    clusterDiagnosis: string;
+    recommendedSquadDeployment: string;
+  }>;
+  byDepartment: Array<{
+    id: string;
+    name: string;
+    hindiName: string;
+    total: number;
+    resolved: number;
+    inProgress: number;
+    resolutionRate: number;
+    avgSlaHours: number;
+    aiEfficacyGrade: string; // e.g. "A+", "B", "C-"
+  }>;
+  languageStats: Array<{
+    name: string;
+    count: number;
+    percent: number;
+  }>;
+  citizenSentimentPulse: {
+    score: number; // -1 to +1
+    statusLabel: string;
+    urgentPercent: number;
+    distressedPercent: number;
+    neutralPercent: number;
+    keyFrictionPoint: string;
+  };
+  auditGeneratedAt: string;
+  isAiSynthesized: boolean;
+}

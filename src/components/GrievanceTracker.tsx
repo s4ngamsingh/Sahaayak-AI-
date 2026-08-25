@@ -311,11 +311,16 @@ export const GrievanceTracker: React.FC<GrievanceTrackerProps> = ({ initialTrack
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block">Location & Ward</span>
+                  <span className="text-slate-400 block">Location & Exact Ward</span>
                   <span className="font-semibold text-white flex items-center gap-1 mt-0.5">
                     <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-                    {grievance.wardNumber}
+                    <span>{grievance.locality ? `${grievance.locality}, ` : ''}{grievance.wardNumber}</span>
                   </span>
+                  {grievance.coordinates && (
+                    <span className="text-[10px] text-slate-400 font-mono block mt-0.5">
+                      GPS: {grievance.coordinates.lat.toFixed(5)}°, {grievance.coordinates.lng.toFixed(5)}°
+                    </span>
+                  )}
                 </div>
                 <div>
                   <span className="text-slate-400 block">Resolution SLA Deadline</span>
