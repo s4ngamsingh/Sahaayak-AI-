@@ -1,6 +1,6 @@
 # Samadhan AI - Smart Citizen Grievance Redressal Portal
 
-[![Live Demo](https://sahayaakaipotal.ai.studio/)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen.svg)](https://ais-pre-y5r7gxgka5yl3pklq4npur-184102740272.asia-southeast1.run.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![React](https://img.shields.io/badge/Frontend-React%2019%20%7C%20Vite%20%7C%20TailwindCSS-61DAFB.svg)](https://reactjs.org/)
 [![Node Express](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%20%7C%20TypeScript-339933.svg)](https://expressjs.com/)
