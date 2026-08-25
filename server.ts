@@ -41,8 +41,16 @@ function getGeminiClient(): GoogleGenAI | null {
     apiKey = apiKey.slice(1, -1).trim();
   }
 
-  // Reject placeholder values or clearly invalid tokens early
-  if (!apiKey || apiKey.length < 10 || apiKey === 'YOUR_GEMINI_API_KEY' || apiKey.includes('YOUR_API_KEY')) {
+  // Reject dummy placeholder values or empty tokens
+  if (
+    !apiKey ||
+    apiKey.length < 15 ||
+    apiKey === 'key' ||
+    apiKey === 'YOUR_GEMINI_API_KEY' ||
+    apiKey.includes('YOUR_API_KEY') ||
+    apiKey === 'undefined' ||
+    apiKey === 'null'
+  ) {
     return null;
   }
 
