@@ -11,7 +11,7 @@
 
 ## 🌐 Live Application
 
-- **Live URL:** [https://ais-pre-y5r7gxgka5yl3pklq4npur-184102740272.asia-southeast1.run.app](https://ais-pre-y5r7gxgka5yl3pklq4npur-184102740272.asia-southeast1.run.app)
+- **Live URL:** [https://ais-pre-y5r7gxgka5yl3pklq4npur-184102740272.asia-southeast1.run.app](https://sahayaakaipotal.ai.studio/)
 
 ---
 
